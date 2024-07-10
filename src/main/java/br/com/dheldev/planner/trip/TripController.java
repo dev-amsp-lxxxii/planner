@@ -1,5 +1,7 @@
 package br.com.dheldev.planner.trip;
 
+import br.com.dheldev.planner.participant.ParticipantCreateResponse;
+import br.com.dheldev.planner.participant.ParticipantRequestPayload;
 import br.com.dheldev.planner.participant.ParticipantService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -71,9 +73,28 @@ public class TripController {
             rawTrip.setIsConfirmed(true);
 
             this.repository.save(rawTrip);
-            this.participantService.triggerConfirmationEmailToParticipanst(id);
+            this.participantService.triggerConfirmationEmailToParticipants(id);
 
             return ResponseEntity.ok(rawTrip);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/invite")
+    public ResponseEntity<ParticipantCreateResponse> inviteParticipant(@PathVariable UUID id, @RequestBody ParticipantRequestPayload payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()) {
+            Trip rawTrip = trip.get();
+
+            ParticipantCreateResponse participantResponse = this.participantService.registerParticipantToEvent(payload.email(), rawTrip);
+
+            if (rawTrip.getIsConfirmed()) {
+                this.participantService.triggerConfirmationEmailToParticipant(payload.email());
+            }
+
+            return ResponseEntity.ok(participantResponse);
         }
 
         return ResponseEntity.notFound().build();
