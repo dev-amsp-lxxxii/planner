@@ -1,10 +1,13 @@
 package br.com.dheldev.planner.trip;
 
+import br.com.dheldev.planner.participant.Participant;
 import br.com.dheldev.planner.participant.ParticipantCreateResponse;
+import br.com.dheldev.planner.participant.ParticipantData;
 import br.com.dheldev.planner.participant.ParticipantRequestPayload;
 import br.com.dheldev.planner.participant.ParticipantService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +101,12 @@ public class TripController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id) {
+        List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
+
+        return ResponseEntity.ok(participantList);
     }
 }
