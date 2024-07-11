@@ -4,6 +4,7 @@ import br.com.dheldev.planner.activity.ActivityData;
 import br.com.dheldev.planner.activity.ActivityRequestPayload;
 import br.com.dheldev.planner.activity.ActivityResponse;
 import br.com.dheldev.planner.activity.ActivityService;
+import br.com.dheldev.planner.link.LinkData;
 import br.com.dheldev.planner.link.LinkRequestPayload;
 import br.com.dheldev.planner.link.LinkResponse;
 import br.com.dheldev.planner.link.LinkService;
@@ -158,5 +159,12 @@ public class TripController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/links")
+    public ResponseEntity<List<LinkData>> getAllLinks(@PathVariable UUID id) {
+        List<LinkData> linkDataList = this.linkService.getAllLinksFromTrip(id);
+
+        return ResponseEntity.ok(linkDataList);
     }
 }
