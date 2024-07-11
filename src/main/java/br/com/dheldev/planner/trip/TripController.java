@@ -1,9 +1,9 @@
 package br.com.dheldev.planner.trip;
 
-import br.com.dheldev.planner.activities.ActivityData;
-import br.com.dheldev.planner.activities.ActivityRequestPayload;
-import br.com.dheldev.planner.activities.ActivityResponse;
-import br.com.dheldev.planner.activities.ActivityService;
+import br.com.dheldev.planner.activity.ActivityData;
+import br.com.dheldev.planner.activity.ActivityRequestPayload;
+import br.com.dheldev.planner.activity.ActivityResponse;
+import br.com.dheldev.planner.activity.ActivityService;
 import br.com.dheldev.planner.participant.ParticipantCreateResponse;
 import br.com.dheldev.planner.participant.ParticipantData;
 import br.com.dheldev.planner.participant.ParticipantRequestPayload;

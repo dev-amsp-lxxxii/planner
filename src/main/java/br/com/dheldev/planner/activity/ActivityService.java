@@ -1,4 +1,4 @@
-package br.com.dheldev.planner.activities;
+package br.com.dheldev.planner.activity;
 
 import br.com.dheldev.planner.trip.Trip;
 import java.util.List;

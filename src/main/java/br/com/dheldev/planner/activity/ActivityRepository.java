@@ -1,4 +1,4 @@
-package br.com.dheldev.planner.activities;
+package br.com.dheldev.planner.activity;
 
 import java.util.List;
 import java.util.UUID;
