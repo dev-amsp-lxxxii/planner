@@ -1,7 +1,6 @@
 package br.com.dheldev.planner.link;
 
 import br.com.dheldev.planner.trip.Trip;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
