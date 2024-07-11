@@ -1,6 +1,8 @@
 package br.com.dheldev.planner.trip;
 
-import br.com.dheldev.planner.participant.Participant;
+import br.com.dheldev.planner.activities.ActivityRequestPayload;
+import br.com.dheldev.planner.activities.ActivityResponse;
+import br.com.dheldev.planner.activities.ActivityService;
 import br.com.dheldev.planner.participant.ParticipantCreateResponse;
 import br.com.dheldev.planner.participant.ParticipantData;
 import br.com.dheldev.planner.participant.ParticipantRequestPayload;
@@ -26,6 +28,9 @@ public class TripController {
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private ActivityService activityService;
 
     @Autowired
     private TripRepository repository;
@@ -98,6 +103,21 @@ public class TripController {
             }
 
             return ResponseEntity.ok(participantResponse);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/{id}/activities")
+    public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayload payload) {
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if (trip.isPresent()) {
+            Trip rawTrip = trip.get();
+
+            ActivityResponse activityResponse = this.activityService.registerActivity(payload, rawTrip);
+
+            return ResponseEntity.ok(activityResponse);
         }
 
         return ResponseEntity.notFound().build();
