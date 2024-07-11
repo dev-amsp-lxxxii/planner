@@ -1,5 +1,6 @@
 package br.com.dheldev.planner.trip;
 
+import br.com.dheldev.planner.activities.ActivityData;
 import br.com.dheldev.planner.activities.ActivityRequestPayload;
 import br.com.dheldev.planner.activities.ActivityResponse;
 import br.com.dheldev.planner.activities.ActivityService;
@@ -107,6 +108,13 @@ public class TripController {
 
         return ResponseEntity.notFound().build();
     }
+    
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id) {
+        List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
+
+        return ResponseEntity.ok(participantList);
+    }
 
     @PostMapping("/{id}/activities")
     public ResponseEntity<ActivityResponse> registerActivity(@PathVariable UUID id, @RequestBody ActivityRequestPayload payload) {
@@ -122,11 +130,11 @@ public class TripController {
 
         return ResponseEntity.notFound().build();
     }
+    
+     @GetMapping("/{id}/activities")
+    public ResponseEntity<List<ActivityData>> getAllActivities(@PathVariable UUID id) {
+        List<ActivityData> acativityDataList = this.activityService.getAllActivitiesFromId(id);
 
-    @GetMapping("/{id}/participants")
-    public ResponseEntity<List<ParticipantData>> getAllParticipants(@PathVariable UUID id) {
-        List<ParticipantData> participantList = this.participantService.getAllParticipantsFromEvent(id);
-
-        return ResponseEntity.ok(participantList);
+        return ResponseEntity.ok(acativityDataList);
     }
 }
